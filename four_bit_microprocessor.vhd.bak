@@ -1,0 +1,97 @@
+-- CONTROL SIGNALS
+-- 0001 -> addition
+-- 0010 -> subtraction
+-- 0011 -> logical AND
+-- 0100 -> logical OR
+-- 0101 -> logical NOT
+-- 0110 -> logical NOR
+-- 0111 -> logical NAND
+-- 1000 -> logical XOR
+-- 1001 -> logical XNOR
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.std_logic_unsigned.all;
+
+entity four_bit_microprocessor is 
+	port(
+		A,B : in std_logic_vector(3 downto 0); -- inputs
+		ctrl_inputs: in std_logic_vector(3 downto 0); -- control signal
+		HEX0, HEX1, HEX2, HEX3, HEX4, HEX5 : out std_logic_vector (6 downto 0)); -- 7-segment display outputs
+end four_bit_microprocessor;
+	
+architecture Behavioural of four_bit_microprocessor is 
+		signal result: std_logic_vector(4 downto 0);
+		signal display1: std_logic;
+		signal display2: std_logic;
+		signal display3: std_logic;
+		signal display4: std_logic;
+		signal display5: std_logic;
+		begin
+		 process(A,B,ctrl_inputs,result)
+		  begin 
+			case(ctrl_inputs) is 
+				when "0001" => 
+					result <= (('0' & A) + ('0' & B));
+				when "0010" => 
+					result <= ('0' & (A - B));
+				when "0011" => 
+					result <= ('0' & (A and B));
+				when "0100" => 
+					result <= ('0' & (A or B));
+				when "0101" => 
+					result <= ('0' & (not A));
+				when "0110" => 
+					result <= ('0' & (A nor B));
+				when "0111" => 
+					result <= ('0' & (A nand B));
+				when "1000" => 
+					result <= ('0' & (A xor B));
+				when "1001" => 
+					result <= ('0' & (A xnor B));
+				when others => 
+					result <= "00000";
+			end case;
+			display1 <= result(0);	-- separate the bits into four displays
+			display2 <= result(1);
+			display3 <= result(2);
+			display4 <= result(3);
+			display5 <= result(4);
+			
+			end process;
+			
+			process(display1,display2,display3,display4,display5)
+				begin
+					case (display1) is
+                    when '0' => HEX0 <= "1000000";     
+                    when '1' => HEX0 <= "1001111";
+						  when others => HEX0 <= "0000000";
+                end case;
+					 
+					 case (display2) is
+                    when '0' => HEX1 <= "1000000";     
+                    when '1' => HEX1 <= "1001111";
+						  when others => HEX1 <= "0000000";
+                end case;
+					 
+					 case (display3) is
+                    when '0' => HEX2 <= "1000000";     
+                    when '1' => HEX2 <= "1001111";
+						  when others => HEX2 <= "0000000";
+                end case;
+					 
+					 case (display4) is
+                    when '0' => HEX3 <= "1000000";     
+                    when '1' => HEX3 <= "1001111";
+						  when others => HEX3 <= "0000000";
+                end case;
+					 
+					 case (display5) is
+                    when '0' => HEX4 <= "1000000";     
+                    when '1' => HEX4 <= "1001111";
+						  when others => HEX4 <= "0000000";
+                end case;
+				
+					
+				end process;
+			
+			end Behavioural;

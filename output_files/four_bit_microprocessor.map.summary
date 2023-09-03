@@ -1,0 +1,16 @@
+Analysis & Synthesis Status : Successful - Sat Sep  2 09:29:49 2023
+Quartus Prime Version : 22.1std.2 Build 922 07/20/2023 SC Lite Edition
+Revision Name : four_bit_microprocessor
+Top-level Entity Name : four_bit_microprocessor
+Family : MAX 10
+Total logic elements : 34
+    Total combinational functions : 34
+    Dedicated logic registers : 0
+Total registers : 0
+Total pins : 47
+Total virtual pins : 0
+Total memory bits : 0
+Embedded Multiplier 9-bit elements : 0
+Total PLLs : 0
+UFM blocks : 0
+ADC blocks : 0
